@@ -1,0 +1,545 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Cut The Drama - Der Weg zu Continuous Deployments @ KN FreightNet</title>
+
+	<meta name="description" content="Cut The Drama - Der Weg zu Continuous Deployments @ KN FreightNet">
+
+	<meta name="author" content="Fabian Linz">
+	<meta name="author" content="Sascha Krüger">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/kuehne-nagel.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+
+		<!-- header for all slides -->
+		<div class="header">
+			<img class="logo-text" src="assets/images/logos/kn-logo.svg">
+			<img class="logo" src="assets/images/logos/kn-anchor.svg">
+		</div>
+
+		<!-- footer for all slides -->
+		<div class="footer">Cut The Drama</div>
+
+
+		<div class="slides">
+
+			<section data-background="assets/images/backgrounds/relax-1137240_1920.jpg">
+				<div class="content-box">
+					<h1>Cut The Drama</h1>
+					<h3>Eine Reise zu Continuous Deployments</h3>
+					<p><a href="http://www.kuehne-nagel.com"><small>Kuehne + Nagel (AG &amp; Co.) KG</small></a></p>
+				</div>
+			</section>
+
+			<section data-background="assets/images/backgrounds/hiking-1312226_1920.jpg">
+				<div class="content-box">
+					<h1>Eine Reise ...</h1>
+					<p>... mit vielen kleinen Schritten</p>
+				</div>
+			</section>
+
+			<section>
+				<div class="introduction">
+					<img src="assets/images/logos/jsd_logo-web.png" width="355" class="conference-logo">
+					<div class="speakers">
+						<div class="speaker-card">
+							<h4 class="speaker-name">Sascha Krüger</h4>
+							<p class="job-title">Software Architekt</p>
+							<div class="social-box">
+								<div class="social github">@skhome</div>
+								<div class="social twitter">@sakruege</div>
+							</div>
+						</div>
+						<div class="speaker-card">
+							<h4 class="speaker-name">Fabian Linz</h4>
+							<p class="job-title">Entwickler &amp; Analyst</p>
+							<div class="social-box">
+								<div class="social github">@fabianlinz</div>
+								<div class="social twitter">@fabian_linz</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!--
+				***	Agenda Überblick ***
+			-->
+			<section data-background="assets/images/backgrounds/agenda.png"></section>
+
+			<section>
+				<section data-background="assets/images/backgrounds/agenda-start.png"></section>
+
+				<section>
+					<div class="content-box">
+						<img src="assets/images/kn-home-screenshot.png" width="1024" />
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/brewery-377023_1920.jpg">
+					<div class="content-box">
+						<h2>Silos</h2>
+						<p>Softwareentwicklung</p>
+						<p>Betrieb &amp; Support</p>
+						<p>Infrastruktur</p>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/pentacle-2680962_1920.jpg">
+					<div class="content-box">
+						<h2>Manuelle Rituale</h2>
+						<p>Übergaben</p>
+						<p>Pläne</p>
+						<p>Tickets</p>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/queue_waiting.jpg">
+					<div class="content-box">
+						<h2>Wartezeiten</h2>
+						<p>Begrenzte Kapazitäten</p>
+						<p>Bottlenecks</p>
+						<p>Queues</p>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/cannon-2034724_1920.jpg">
+					<div class="content-box">
+						<h2>Release Pakete</h2>
+						<p>Sprints</p>
+						<p>Deployments</p>
+						<p>Releases</p>
+					</div>
+				</section>
+			</section>
+
+			<!--
+				QUALITY ASSURANCE & TEST AUTOMATION
+			-->
+			<section>
+				<section data-background="assets/images/backgrounds/agenda-quality.png"></section>
+
+				<section>
+					<div class="content-box">
+						<h3>Teststufen</h3>
+						<img src="assets/images/quality-gate-intial.png"/>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/rio-de-janeiro-olympics-2016-niteroi-brazil-161179.jpeg">
+					<div class="content-box">
+						<h2>Qualitätssicherung</h2>
+						<p>hohe Testautomatisierung &#8594; schnelles Feedback</p>
+						<p>kontinuierlich bei jedem Arbeitsschritt</p>
+						<p>Aufgabe des gesamten Teams</p>
+					</div>
+				</section>
+			</section>
+
+			<!--
+				PROVISIONING & DEPLOYMENT AUTOMATION
+			-->
+			<section>
+				<section data-background="assets/images/backgrounds/agenda-deployments.png"></section>
+
+				<section data-background="assets/images/backgrounds/snowflakes-1933485_1920.jpg">
+					<div class="content-box">
+						<h2>Snowflake Server</h2>
+						<p>manuell + individuell</p>
+						<p>&ne; deterministisch</p>
+						<p>&ne; reproduzierbar</p>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/phoenix-500469_1920_2.png">
+					<div class="content-box">
+						<h2>Phoenix Server</h2>
+						<blockquote>
+							... it is a good idea to virtually burn down your servers at regular intervals. A server should be like a phoenix, regularly
+							rising from the ashes.<br><br> - Martin Fowler
+						</blockquote>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/automation-bmw-leipzig.png">
+					<div class="content-box">
+						<h2>Automatisierung</h2>
+						<p>Provisionierung / Deployment</p>
+						<p>Konfiguration</p>
+						<p>Monitoring</p>
+					</div>
+				</section>
+
+				<section>
+					<h3>Automatisierung</h3>
+					<img src="assets/images/deployment-automation-initial.png" width="760" />
+				</section>
+
+				<section>
+					<h3>Automatisierung</h3>
+					<img src="assets/images/deployment-automation-ansible.png" width="760" />
+				</section>
+
+				<section>
+					<h3>Automatisierung</h3>
+					<img src="assets/images/deployment-automation-flow.png" width="760" />
+				</section>
+
+				<section>
+					<h3>Automatisierung</h3>
+					<img src="assets/images/deployment-automation-command.png" width="760" />
+				</section>
+			</section>
+
+			<!--
+				ZERO DOWNTIME
+			-->
+			<section>
+				<section data-background="assets/images/backgrounds/agenda-downtimes.png"></section>
+
+				<section data-background="assets/images/backgrounds/highway-1338440_1920.jpg">
+					<div class="content-box">
+						<h2>Deployment Downtimes</h2>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/business-257911_1280.jpg">
+					<div class="content-box">
+						<h2>Business Hours</h2>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/clock-897711_1920.jpg">
+					<div class="content-box">
+						<h2>Zero Downtime</h2>
+						<p>atomarer cut-over</p>
+						<p>einfach zu automatisieren</p>
+						<p>Power-On test</p>
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Blue-Green deployment</h3>
+						<img src="assets/images/blue-green-initial.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Blue-Green deployment</h3>
+						<img src="assets/images/blue-green-step-1.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Blue-Green deployment</h3>
+						<img src="assets/images/blue-green-step-2.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Blue-Green deployment</h3>
+						<img src="assets/images/blue-green-step-3.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Blue-Green deployment</h3>
+						<img src="assets/images/blue-green-step-4.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Blue-Green deployment</h3>
+						<img src="assets/images/blue-green-step-5.png" width="760">
+					</div>
+				</section>
+			</section>
+
+			<section>
+				<section data-background="assets/images/backgrounds/agenda-scalability.png"></section>
+
+				<section data-background="assets/images/backgrounds/grandstand-330930_1920.jpg">
+					<div class="content-box">
+						<h2>Skalierbarkeit</h2>
+						<p>Funktionen</p>
+						<p>Teams</p>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/sandstone-289198_1920.jpg">
+					<div class="content-box">
+						<h2>Achtung Monolith</h2>
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Monolith mit Big Bang Deployment</h3>
+						<img src="assets/images/monolith-deployment.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Self Contained Systems (SCS)</h3>
+						<img src="assets/images/scs-teams.png" width="760">
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<h3>Self Contained Systems (SCS)</h3>
+						<img src="assets/images/scs-architecture.png" width="760">
+					</div>
+				</section>
+
+			</section>
+
+			<!--
+				TIME TO MARKET => CONTINUOUS DEPLOYMENTS
+			-->
+			<section>
+				<section data-background="assets/images/backgrounds/agenda-continuous-deployments.png"></section>
+
+				<section data-background="assets/images/backgrounds/pexels-photo-95425.jpg">
+					<div class="content-box">
+						<h2>Improve Time to Market</h2>
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-initial.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-1.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-2.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-3.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-4.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-5.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Sammeln von Änderungen</h3>
+						<img src="assets/images/releases-batched-6.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Continuous Deployment</h3>
+						<img src="assets/images/releases-continuous-1.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Continuous Deployment</h3>
+						<img src="assets/images/releases-continuous-2.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Continuous Deployment</h3>
+						<img src="assets/images/releases-continuous-3.png" width="900">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Continuous Deployment</h3>
+                        <img src="assets/images/releases-continuous-4.png" width="900">
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/pexels-photo-534258.jpg">
+					<div class="content-box">
+						<h2>Feature Toggles</h2>
+						<p>entkoppeln Deployment und Release</p>
+					</div>
+				</section>
+
+				<section data-background="assets/images/backgrounds/kaboompics_robots_on_an_exhibition.jpg">
+					<div class="content-box">
+						<h2>Automatisierung</h2>
+						<p>Build</p>
+						<p>Qualitätssicherung</p>
+						<p>Deployment</p>
+						<p>Organisatorisches</p>
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Deploymentgröße</h3>
+						<img data-src="assets/images/overland_deployments2.png">
+					</div>
+				</section>
+
+				<section>
+					<div class="content-box">
+						<h3>Pipeline</h3>
+					</div>
+					<img data-src="assets/images/tmp_overland_pipeline_view.png">
+				</section>
+
+				<section data-background="assets/images/backgrounds/baseball-victory-game-sport-163534.jpg">
+					<div class="content-box">
+						<h2>Weitere Vorteile</h2>
+						<p>Kompatibilität leichter zu beurteilen</p>
+						<p>Kleineres Risiko beim Deployment</p>
+						<p>Ein Prozess (auch für Bugs)</p>
+						<p>Done = Funktioniert in Produktion</p>
+					</div>
+				</section>
+
+			</section>
+
+			<section data-background="assets/images/backgrounds/sign-slippery-wet-caution.jpg">
+				<div class="content-box">
+					<h2>Achtung</h2>
+					<p>Kompatibilität</p>
+					<p>Automatisierung</p>
+					<p>Skalierbarkeit</p>
+				</div>
+			</section>
+
+			<section data-background="assets/images/backgrounds/screenplay-2651055_1920.jpg">
+				<div class="content-box">
+					<h2>Zahlen</h2>
+					<p><span class="fact-number">5</span>Deployments pro Tag</p>
+					<p><span class="fact-number">1000+</span>automatisierte Deployments seit Einführung</p>
+					<p><span class="fact-number">0-1</span>beteiligte Personen pro Deployment</p>
+				</div>
+			</section>
+
+			<section data-background="assets/images/backgrounds/hiking-1312226_1920.jpg">
+				<div class="content-box">
+					<h2>Fazit</h2>
+					<p>Jeder kleine Schritt ist wertvoll</p>
+					<p>Herausforderungen als Chancen wahrnehmen</p>
+					<p>Früher Feedback erhalten</p>
+				</div>
+			</section>
+
+			<section data-background="assets/images/backgrounds/chalkboard-620316_1920.jpg" data-background-transition="zoom"></section>
+
+			<section>
+				<div class="content-box">
+					<h2>Referenzen</h2>
+					<p>Fantasy Map von Jonathan Roberts (http://www.fantasticmaps.com/)</p>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			controls: false,
+			progress: true,
+			history: true,
+			center: true,
+
+			width: 1024,
+			height: 768,
+
+			transition: 'none',
+			transitionSpeed: 'default',
+			backgroundTransition: 'fade',
+
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function () {
+						hljs.initHighlightingOnLoad();
+					}
+				},
+				{
+					src: 'plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+
+	</script>
+</body>
+
+</html>
